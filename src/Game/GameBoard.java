@@ -1,5 +1,6 @@
 package Game;
 
+import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -15,22 +16,26 @@ public class GameBoard {
         int playerScore = 0;
         int counter = 0; // of games played
 
+        String[] choices = {"rock", "paper", "scissors"};
+
+
+        // ********** GAME LOGIC  **********
         System.out.println("It's Rock, Paper, Scissors!!!");
         System.out.println("Enter User Name:");
         String name = Scan.nextLine();
         System.out.println("Ready to Throw Hands!!!");
         while (counter == 0) {
-            int compChoice = 1 + Rand.nextInt(3); // select random int 1:3
-
+            String compChoice = choices[Rand.nextInt(3)]; // select random from choices
+            System.out.println(compChoice);
             // player input
             System.out.println(name + "'s Turn. Enter `Rock`, `Paper`, or `Scissors`");
-            String playerChoice = Scan.nextLine();
+            String playerChoice = Scan.nextLine().toLowerCase();
 
             if(playerChoice.equals(compChoice)) {
                 System.out.println("Tie. Next Round.");
-            } else if (playerChoice.equals("Rock")) {
+            } else if (playerChoice.equals("rock")) {
                 System.out.println("You chose Rock."); // confirm selection
-                if (compChoice.equals("Paper")) {
+                if (compChoice.equals(choices[1])) {
                     System.out.println("AI Chose Paper."); // comp selection
                     System.out.println("Computer Wins..."); // game result
                     compScore++;
@@ -43,9 +48,9 @@ public class GameBoard {
                     System.out.println("Computer: " + compScore);
                     System.out.println(name + ": " + playerScore);
                 }
-            } else if (playerChoice == 2) {
+            } else if (playerChoice.equals("paper")) {
                 System.out.println("You chose Paper."); // confirm selection
-                if (compChoice == 3) {
+                if (compChoice.equals(choices[2])) {
                     System.out.println("AI Chose Scissors."); // comp selection
                     System.out.println("Computer Wins..."); // game result
                     compScore++;
@@ -58,9 +63,9 @@ public class GameBoard {
                     System.out.println("Computer: " + compScore);
                     System.out.println(name + ": " + playerScore);
                 }
-            } else if (playerChoice == 3) {
+            } else if (playerChoice.equals("scissors")) {
                 System.out.println("You chose Scissors."); // confirm selection
-                if (compChoice == 1) {
+                if (compChoice.equals(choices[0])) {
                     System.out.println("AI Chose Rock."); // comp selection
                     System.out.println("Computer Wins..."); // game result
                     compScore++;
