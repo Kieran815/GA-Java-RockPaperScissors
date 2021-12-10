@@ -26,14 +26,15 @@ public class GameBoard {
         System.out.println("It's Rock, Paper, Scissors!!!");
         System.out.println("Main Menu");
         System.out.println("=========");
+        System.out.println("Enter Player One's Name:");
+        player1.setName(Scan.nextLine());
         System.out.println("Enter Number of Players: `1` or `2`:");
+
+        // Player Creation
         setPlayers(Scan.nextInt());
 
 
 
-        // Player Creation
-        System.out.println("Enter Player One's Name:");
-        player1.setName(Scan.nextLine());
 
         System.out.println("Ready to Throw Hands!!!");
         System.out.println("=======================");
@@ -123,13 +124,14 @@ public class GameBoard {
     }
 
     static void setPlayers(int numPlayers) {
+        Scan.nextLine();
         if (numPlayers == 1) {
             player2 = new ComputerPlayer();
             player2.setName("");
         } else if (numPlayers == 2) {
+            player2 = new HumanPlayer();
             System.out.println("Enter Player Two's Name:");
             player2.setName(Scan.nextLine());
-
         }
     }
 
