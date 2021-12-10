@@ -5,11 +5,9 @@ class HumanPlayer extends Player {
     private String name;
     private String playerChoice;
 
-
     void setName(String pName) {
         name = pName;
     }
-
 
     void setPlayerChoice(String pChoice) {
         playerChoice = pChoice;
