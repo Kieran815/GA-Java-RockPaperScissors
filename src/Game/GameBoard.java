@@ -10,7 +10,6 @@ public class GameBoard {
     static Scanner Scan = new Scanner(System.in); // init scanner for user inputs
     static Random Rand = new Random(); // rand for comp selection, 1-3
 
-
     static String[] choices = {"rock", "paper", "scissors"};
 
     static Player player1 = new HumanPlayer();
@@ -21,36 +20,27 @@ public class GameBoard {
 
     public static void main(String[] args) {
 
-
-        // ********** GAME LOGIC  **********
+        // ********** GAME SETUP  **********
         System.out.println("It's Rock, Paper, Scissors!!!");
         System.out.println("Main Menu");
         System.out.println("=========");
         System.out.println("Enter Player One's Name:");
         player1.setName(Scan.nextLine());
-        System.out.println("Enter Number of Players: `1` or `2`:");
-
         // Player Creation
-        setPlayers(Scan.nextInt());
+        setPlayers();
 
 
 
 
         System.out.println("Ready to Throw Hands!!!");
         System.out.println("=======================");
-//        --------------------------------------------------------------------------------------------------
+
+
+        // ********** GAME LOGIC  **********
         while (gameOn == true) {
-
-
             playerMove(currentPlayer); // player 1 move
             togglePlayer();
             playerMove(currentPlayer); // player 2 move
-
-//            try {
-//                Arrays.stream(choices).anyMatch(choice -> choice.equals(currentPlayer.getPlayerChoice()));
-//            } catch {
-//
-//            }
 
             if(player1.getPlayerChoice().equals(player2.getPlayerChoice())) {
                 System.out.println("Tie. Next Round.");
@@ -58,7 +48,7 @@ public class GameBoard {
                 System.out.println(player1.getName() + " chose " + player1.getPlayerChoice() + "."); // confirm selection
                 if (player2.getPlayerChoice().equals(choices[1])) {
                     System.out.println(player2.getName() + " Chose " + choices[1] + "."); // comp selection
-                    System.out.println(player2.getName() + " Win!!!"); // game result
+                    System.out.println(player2.getName() + " Wins!"); // game result
                     player2.setPlayerScore();
                     System.out.println(player1.getName() + ": " + player1.getPlayerScore());
                     System.out.println(player2.getName() + ": " + player2.getPlayerScore());
@@ -73,7 +63,7 @@ public class GameBoard {
                 System.out.println(player1.getName() + " chose " + player1.getPlayerChoice() + "."); // confirm selection
                 if (player2.getPlayerChoice().equals(choices[2])) {
                     System.out.println(player2.getName() + " Chose " + player2.getPlayerChoice() + "."); // comp selection
-                    System.out.println(player2.getName() + " Wins..."); // game result
+                    System.out.println(player2.getName() + " Wins!"); // game result
                     player2.setPlayerScore();
                     System.out.println(player1.getName() + ": " + player1.getPlayerScore());
                     System.out.println(player2.getName() + ": " + player2.getPlayerScore());
@@ -87,13 +77,13 @@ public class GameBoard {
             } else if (player1.getPlayerChoice().equals(choices[2])) { // SCISSORS
                 System.out.println(player1.getName() + " chose " + player1.getPlayerChoice() + "."); // confirm selection
                 if (player2.getPlayerChoice().equals(choices[0])) {
-                    System.out.println(player2.getName() + " Chose Rock."); // comp selection
+                    System.out.println(player2.getName() + " Chose " + player2.getPlayerChoice() + "."); // comp selection
                     System.out.println(player2.getName() + " Wins!"); // game result
                     player2.setPlayerScore();
                     System.out.println(player1.getName() + ": " + player1.getPlayerScore());
                     System.out.println(player2.getName() + ": " + player2.getPlayerScore());
                 } else if (player2.getPlayerChoice().equals(choices[1])) {
-                    System.out.println(player2.getName() + " Chose Paper");
+                    System.out.println(player2.getName() + " Chose " + player2.getPlayerChoice() + ".");
                     System.out.println(player1.getName() + " Wins!");
                     player1.setPlayerScore();
                     System.out.println(player1.getName() + ": " + player1.getPlayerScore());
@@ -123,7 +113,9 @@ public class GameBoard {
         }
     }
 
-    static void setPlayers(int numPlayers) {
+    static void setPlayers() {
+        System.out.println("Enter Number of Players: `1` or `2`:");
+        int numPlayers = Scan.nextInt();
         Scan.nextLine();
         if (numPlayers == 1) {
             player2 = new ComputerPlayer();
@@ -132,6 +124,9 @@ public class GameBoard {
             player2 = new HumanPlayer();
             System.out.println("Enter Player Two's Name:");
             player2.setName(Scan.nextLine());
+        } else {
+            System.out.println("Invalid Entry.");
+            setPlayers();
         }
     }
 
@@ -144,10 +139,15 @@ public class GameBoard {
     }
 
     static void playerMove(Player nextPlayer) {
-        // player1 input
-        System.out.println(nextPlayer.getName() + "'s Turn. Enter `Rock`, `Paper`, or `Scissors`"); // player input
-        String playerSelection = Scan.nextLine().toLowerCase(); // computer scans
-        checkPlayerChoice(playerSelection); // check player input
+        String playerSelection;
+        if (currentPlayer == player2 && player2 instanceof ComputerPlayer) {
+            player2.setPlayerChoice("");
+        } else {
+            System.out.println(nextPlayer.getName() + "'s Turn. Enter `Rock`, `Paper`, or `Scissors`"); // player input
+            playerSelection = Scan.nextLine().toLowerCase(); // computer scans
+            checkPlayerChoice(playerSelection); // check player input
+        }
+
     }
 
     static void checkPlayerChoice(String playerSelection) {
