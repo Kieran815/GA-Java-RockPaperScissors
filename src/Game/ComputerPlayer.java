@@ -1,12 +1,9 @@
 package Game;
 
 import java.util.Random;
-
-import static Game.GameBoard.Rand;
 import static Game.GameBoard.choices;
 
 class ComputerPlayer extends Player {
-
     private String name;
     private String playerChoice;
 
@@ -16,7 +13,7 @@ class ComputerPlayer extends Player {
     }
 
     @Override
-    void setPlayerChoice(String pChoice) { // pass empty string in method
+    void setPlayerChoice(String pChoice) {
         int random = new Random().nextInt(choices.length);
         playerChoice = choices[random];
     }

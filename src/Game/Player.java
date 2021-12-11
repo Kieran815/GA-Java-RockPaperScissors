@@ -1,8 +1,6 @@
 package Game;
 
 public abstract class Player {
-//    private String name = "";
-//    private String playerChoice = "";
     private int playerScore = 0;
 
     public void setPlayerScore() {

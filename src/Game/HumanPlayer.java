@@ -1,7 +1,6 @@
 package Game;
 
 class HumanPlayer extends Player {
-
     private String name;
     private String playerChoice;
 
